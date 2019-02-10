@@ -1,0 +1,1754 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Homework 2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{c+c1}{\PYZsh{} LOADING MODULES}
+         
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+         
+         \PY{k+kn}{from} \PY{n+nn}{pydoc} \PY{k}{import} \PY{n}{help}
+         \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{pearsonr}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{datasets}\PY{p}{,} \PY{n}{linear\PYZus{}model}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{tree} \PY{k}{import} \PY{n}{DecisionTreeRegressor}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neighbors} \PY{k}{import} \PY{n}{KNeighborsRegressor}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestRegressor}
+         \PY{k+kn}{import} \PY{n+nn}{xgboost} \PY{k}{as} \PY{n+nn}{xgb}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,} \PY{n}{r2\PYZus{}score}
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cross\PYZus{}validation} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{,} \PY{n}{cross\PYZus{}val\PYZus{}predict}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+         
+         \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+         \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{timedelta}
+         \PY{k+kn}{import} \PY{n+nn}{datetime} \PY{k}{as} \PY{n+nn}{dt}
+         \PY{k+kn}{import} \PY{n+nn}{calendar}
+         
+         \PY{k+kn}{import} \PY{n+nn}{math}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} !conda install \PYZhy{}c conda\PYZhy{}forge haversine}
+        \PY{c+c1}{\PYZsh{} y}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} !conda install \PYZhy{}c conda\PYZhy{}forge/label/gcc7 haversine}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} READING TRAINING DATA}
+        
+        \PY{n}{train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./train.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nrows} \PY{o}{=} \PY{l+m+mi}{1000000}\PY{p}{)}
+        \PY{n}{train}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} Index(['key', 'fare\_amount', 'pickup\_datetime', 'pickup\_longitude',
+               'pickup\_latitude', 'dropoff\_longitude', 'dropoff\_latitude',
+               'passenger\_count'],
+              dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} CHECK FOR NULL ENTRIES}
+        \PY{n}{train}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{train}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} key                  0.0
+        fare\_amount          0.0
+        pickup\_datetime      0.0
+        pickup\_longitude     0.0
+        pickup\_latitude      0.0
+        dropoff\_longitude    0.0
+        dropoff\_latitude     0.0
+        passenger\_count      0.0
+        dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} EXTRACT DATA FROM PICKUP\PYZus{}DATETIME FEATURE IN THE DATASET }
+        
+        \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{format} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{S UTC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}train[\PYZsq{}pickup\PYZus{}date\PYZsq{}]= train[\PYZsq{}pickup\PYZus{}datetime\PYZsq{}].dt.date}
+        
+        \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{hour}
+        \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{day}
+        \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{month}
+        \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}
+        \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day\PYZus{}of\PYZus{}week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{calendar}\PY{o}{.}\PY{n}{day\PYZus{}name}\PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{weekday}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1000000, 13)
+Index(['key', 'fare\_amount', 'pickup\_datetime', 'pickup\_longitude',
+       'pickup\_latitude', 'dropoff\_longitude', 'dropoff\_latitude',
+       'passenger\_count', 'pickup\_hour', 'pickup\_day', 'pickup\_day\_of\_week',
+       'pickup\_month', 'pickup\_year'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} REMOVING ENTRIES WITH \PYZhy{}VE FARE AMOUNT}
+        
+        \PY{n}{train}\PY{o}{=}\PY{n}{train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{]}
+        
+        \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(999962, 13)
+
+    \end{Verbatim}
+
+    \subparagraph{TRUNCATING THE LONGITUDE AND LATTITUDE COORDINATES BASED
+ON THAT OF NEW
+YORK}\label{truncating-the-longitude-and-lattitude-coordinates-based-on-that-of-new-york}
+
+Used the below link to obtain the Boundary Co-ordinates of New York
+https://www.mapdevelopers.com/geocode\_bounding\_box.php
+
+The boundaries of New York are:\\
+North Latitude: 40.917577\\
+South Latitude: 40.477399\\
+East Longitude: -73.700272\\
+West Longitude: -74.259090
+
+Used the above to build a boundary by for the allowed Drop\_off and
+Pick\_up Longitude, Latittudes.
+
+This method of data cleaning did not produce substantial results. On
+analysing the possible reasons for the bad behaviour of the model, I
+felt that the narrow possible values for the Longitude and Lattitude
+could be a reason. To verify the same, I checked the boundaries of the
+Longitudes and Lattitudes on the Test Data and found that a lot of
+samples had coordinates outside the above used boundary.
+
+Inorder to cater to this issue, I used the Test Data to obtain the
+boundaries on the Lattitude and Longitude.
+
+Which came out to be\\
+North Latitude: 41.709555\\
+South Latitude: 40.573143\\
+East Longitude: -72.986532\\
+West Longitude: -74.263242
+
+Created the Boundary using the below values as Test Data contained
+co-ordinates a bit outside the boundaries specified by the link above.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Before we  ahead and identify outlier location, let us read the test data and see what the boundaries are.}
+        \PY{n}{test} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./test.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Longitude Boundary in test data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{test}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n+nb}{max}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{test}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Latitude Boundary in test data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{n+nb}{min}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{test}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n+nb}{max}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{test}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Longitude Boundary in test data
+-74.263242 -72.986532
+Latitude Boundary in test data
+40.573143 41.709555
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} boundary=\PYZob{}\PYZsq{}min\PYZus{}lng\PYZsq{}:\PYZhy{}74.263242,}
+         \PY{c+c1}{\PYZsh{}           \PYZsq{}min\PYZus{}lat\PYZsq{}:40.573143,}
+         \PY{c+c1}{\PYZsh{}           \PYZsq{}max\PYZus{}lng\PYZsq{}:\PYZhy{}72.986532, }
+         \PY{c+c1}{\PYZsh{}           \PYZsq{}max\PYZus{}lat\PYZsq{}:41.709555\PYZcb{}}
+         
+         \PY{n}{boundary}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{north\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{41.709555}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{south\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{40.573143}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{east\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mf}{72.986532}\PY{p}{,} 
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{west\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mf}{74.263242}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} train[(train.pickup\PYZus{}latitude==0) | (train.pickup\PYZus{}longitude)==0 | (train.dropoff\PYZus{}latitude==0)|(train.dropoff\PYZus{}longitude==0)].shape}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{p}{(}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{west\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{east\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}}
+                     \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{south\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{north\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}}
+                     \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{west\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{east\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}}
+                     \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude} \PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{south\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{north\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}outlier\PYZus{}loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+         \PY{n}{train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{west\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{east\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}}
+                     \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{south\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{north\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}}
+                     \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{west\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{east\PYZus{}long}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}}
+                     \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude} \PY{o}{\PYZgt{}}\PY{o}{=}\PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{south\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{boundary}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{north\PYZus{}lat}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}outlier\PYZus{}loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}
+         
+         \PY{c+c1}{\PYZsh{} print(\PYZdq{}Outlier vs Non Outlier Counts\PYZdq{})}
+         \PY{c+c1}{\PYZsh{} print(train[\PYZsq{}is\PYZus{}outlier\PYZus{}loc\PYZsq{}].value\PYZus{}counts())}
+         
+         \PY{n}{train}\PY{o}{=}\PY{n}{train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}outlier\PYZus{}loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{train}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}outlier\PYZus{}loc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(978799, 13)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} CALCULATING HAVERSIAN DISTANCE}
+         
+         \PY{k}{def} \PY{n+nf}{haversian\PYZus{}distance}\PY{p}{(}\PY{n}{lat1}\PY{p}{,} \PY{n}{lat2}\PY{p}{,} \PY{n}{lon1}\PY{p}{,}\PY{n}{lon2}\PY{p}{)}\PY{p}{:}
+             \PY{n}{p} \PY{o}{=} \PY{l+m+mf}{0.017453292519943295} \PY{c+c1}{\PYZsh{} Pi/180}
+             \PY{n}{a} \PY{o}{=} \PY{l+m+mf}{0.5} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{p}{(}\PY{n}{lat2} \PY{o}{\PYZhy{}} \PY{n}{lat1}\PY{p}{)} \PY{o}{*} \PY{n}{p}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{lat1} \PY{o}{*} \PY{n}{p}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{n}{lat2} \PY{o}{*} \PY{n}{p}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{cos}\PY{p}{(}\PY{p}{(}\PY{n}{lon2} \PY{o}{\PYZhy{}} \PY{n}{lon1}\PY{p}{)} \PY{o}{*} \PY{n}{p}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{l+m+mi}{2}
+             \PY{k}{return} \PY{l+m+mf}{0.6213712} \PY{o}{*} \PY{l+m+mi}{12742} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{arcsin}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hav\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{train}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{row}\PY{p}{:}\PY{n}{haversian\PYZus{}distance}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dropoff\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dropoff\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} CALCULATING EUCLEDIAN DISTANCE}
+         
+         \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euc\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{69} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['key', 'fare\_amount', 'pickup\_datetime', 'pickup\_longitude',
+       'pickup\_latitude', 'dropoff\_longitude', 'dropoff\_latitude',
+       'passenger\_count', 'pickup\_hour', 'pickup\_day', 'pickup\_day\_of\_week',
+       'pickup\_month', 'pickup\_year', 'hav\_distance', 'euc\_distance'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \paragraph{WEATHER DATA}\label{weather-data}
+
+Used the below link for reference to obtain a part of New York Weather
+Data for the period that The Taxi Fare Dataset spans over.
+
+https://sdaulton.github.io/TaxiPrediction/
+
+The dataset set used is
+https://raw.githubusercontent.com/sdaulton/TaxiPrediction/master/data/nyc-weather-data.csv
+
+This dataset covers Daily Summary of Weather of New York From Jan 1st
+2009 to Nov 11th 2015.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} EXTRACTING FEATURES FROM THE WEATHER DATASET}
+         
+         \PY{n}{weather}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./Weather\PYZus{}Data.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Replacing Values with \PYZhy{}9999 with 0 as they indicate Missing Data}
+         \PY{n}{weather}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{weather}\PY{o}{.}\PY{n}{SNWD} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9999}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SNWD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{weather}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{weather}\PY{o}{.}\PY{n}{SNOW} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9999}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SNOW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{weather}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{weather}\PY{o}{.}\PY{n}{AWND} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{9999}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AWND}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{c+c1}{\PYZsh{}Extracting the Year, Month, Day with the same Column Name as that of the Existing Data for Merging}
+         \PY{n}{weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{l+m+mi}{10000}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{)}
+         \PY{n}{weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{p}{(}\PY{n}{weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mod}\PY{p}{(}\PY{l+m+mi}{10000}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{)}
+         \PY{n}{weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mod}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{weather} \PY{o}{=} \PY{n}{weather}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PRCP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SNWD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SNOW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TMAX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TMIN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AWND}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} weather[\PYZsq{}PRCP\PYZsq{}] = weather[\PYZsq{}PRCP\PYZsq{}] / 10.}
+         \PY{c+c1}{\PYZsh{} weather[\PYZsq{}TMAX\PYZsq{}] = weather[\PYZsq{}TMAX\PYZsq{}] / 10.}
+         \PY{c+c1}{\PYZsh{} weather[\PYZsq{}TMIN\PYZsq{}] = weather[\PYZsq{}TMIN\PYZsq{}] / 10.}
+         \PY{c+c1}{\PYZsh{} weather[\PYZsq{}AWND\PYZsq{}] = weather[\PYZsq{}AWND\PYZsq{}] / 10. * 3.6}
+         \PY{n}{weather}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precipitation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{snow\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{snowfall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{} MERGING EXISTING DATA WITH WEATHER DATA TO GENERATE NEW FEATURES}
+         
+         \PY{n}{train\PYZus{}new} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{train}\PY{p}{,} \PY{n}{weather}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{train\PYZus{}new}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['key', 'fare\_amount', 'pickup\_datetime', 'pickup\_longitude',
+       'pickup\_latitude', 'dropoff\_longitude', 'dropoff\_latitude',
+       'passenger\_count', 'pickup\_hour', 'pickup\_day', 'pickup\_day\_of\_week',
+       'pickup\_month', 'pickup\_year', 'hav\_distance', 'euc\_distance',
+       'precipitation', 'snow\_depth', 'snowfall', 'max\_temp', 'min\_temp',
+       'avg\_wind'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} CHECKING FOR NULL VALUES}
+         
+         \PY{n}{train\PYZus{}new}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{train\PYZus{}new}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{train\PYZus{}new}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+key                           object
+fare\_amount                  float64
+pickup\_datetime       datetime64[ns]
+pickup\_longitude             float64
+pickup\_latitude              float64
+dropoff\_longitude            float64
+dropoff\_latitude             float64
+passenger\_count                int64
+pickup\_hour                    int64
+pickup\_day                     int64
+pickup\_day\_of\_week            object
+pickup\_month                   int64
+pickup\_year                    int64
+hav\_distance                 float64
+euc\_distance                 float64
+precipitation                  int64
+snow\_depth                     int64
+snowfall                       int64
+max\_temp                       int64
+min\_temp                       int64
+avg\_wind                       int64
+dtype: object
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} FINAL TRAIN DATA SET THAT WILL BE USED FOR TRAINING AND VALIDATION}
+         
+         \PY{n}{train} \PY{o}{=} \PY{n}{train\PYZus{}new}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['key', 'fare\_amount', 'pickup\_datetime', 'pickup\_longitude',
+       'pickup\_latitude', 'dropoff\_longitude', 'dropoff\_latitude',
+       'passenger\_count', 'pickup\_hour', 'pickup\_day', 'pickup\_day\_of\_week',
+       'pickup\_month', 'pickup\_year', 'hav\_distance', 'euc\_distance',
+       'precipitation', 'snow\_depth', 'snowfall', 'max\_temp', 'min\_temp',
+       'avg\_wind'],
+      dtype='object')
+(978799, 21)
+key                           object
+fare\_amount                  float64
+pickup\_datetime       datetime64[ns]
+pickup\_longitude             float64
+pickup\_latitude              float64
+dropoff\_longitude            float64
+dropoff\_latitude             float64
+passenger\_count                int64
+pickup\_hour                    int64
+pickup\_day                     int64
+pickup\_day\_of\_week            object
+pickup\_month                   int64
+pickup\_year                    int64
+hav\_distance                 float64
+euc\_distance                 float64
+precipitation                  int64
+snow\_depth                     int64
+snowfall                       int64
+max\_temp                       int64
+min\_temp                       int64
+avg\_wind                       int64
+dtype: object
+
+    \end{Verbatim}
+
+    \paragraph{PEARSON CORRELATION}\label{pearson-correlation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Corr between Eucledian Distance and Fare Amount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{corr} \PY{o}{=} \PY{n}{pearsonr}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{fare\PYZus{}amount}\PY{p}{,} \PY{n}{train}\PY{o}{.}\PY{n}{euc\PYZus{}distance}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{corr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Corr between Eucledian Distance and Fare Amount
+(0.8257585563383683, 0.0)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{} Scatter Plot Between Eucledian Distance and Fare Amount}
+          
+          \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euc\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}120}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{c+c1}{\PYZsh{} Scatter Plot Between Eucledian Distance \PYZlt{}=50 and Fare Amount}
+          
+          \PY{n}{lm} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euc\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{lm}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlim}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride \PYZlt{}=50 Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride \PYZlt{}= 50}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}122}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{} pickup\PYZus{}hour is distributed from 0\PYZhy{}23 for each hour}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Corr between Time of the Day and Eucledian Distance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{corr} \PY{o}{=} \PY{n}{pearsonr}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{euc\PYZus{}distance}\PY{p}{,} \PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}hour}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{corr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Corr between Time of the Day and Eucledian Distance
+(-0.030505480979840977, 3.470537802458462e-200)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}105}]:} \PY{c+c1}{\PYZsh{} Scatter Plot Between Eucledian Distance and Time of the Day}
+          
+          \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euc\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day Vs Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}105}]:} Text(10.05,0.5,'Distance of Ride')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Corr between Time of the Day and Fare Amount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{corr} \PY{o}{=} \PY{n}{pearsonr}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{fare\PYZus{}amount}\PY{p}{,} \PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}hour}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{corr}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Corr between Time of the Day and Fare Amount
+(-0.01927381911008901, 4.469411432095102e-81)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}106}]:} \PY{c+c1}{\PYZsh{} Scatter Plot Between Fare Amount and Time of the Day}
+          
+          \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time of Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}106}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{OTHER INTERESTING PLOTS AND CORRELATIONS BETWEEN CERTAIN
+FEATURES}\label{other-interesting-plots-and-correlations-between-certain-features}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Checking the Correlation between Fare Amount and all other Features}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Corr between Fare Amount and all other parameters}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fare\PYZus{}amount}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Corr between Fare Amount and all other parameters
+fare\_amount          1.000000
+pickup\_longitude     0.385422
+pickup\_latitude     -0.187734
+dropoff\_longitude    0.302614
+dropoff\_latitude    -0.152105
+passenger\_count      0.014255
+pickup\_hour         -0.019274
+pickup\_day           0.001666
+pickup\_month         0.025464
+pickup\_year          0.116534
+hav\_distance         0.817532
+euc\_distance         0.825759
+precipitation       -0.005898
+snow\_depth           0.003205
+snowfall            -0.007590
+max\_temp             0.010604
+min\_temp             0.010626
+avg\_wind            -0.022123
+Name: fare\_amount, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{} And, checking the Correlation between Haversian Distance and all other Features}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Corr between Haversian Distance and all other parameters}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pearson}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hav\PYZus{}distance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Corr between Haversian Distance and all other parameters
+fare\_amount          0.817532
+pickup\_longitude     0.430822
+pickup\_latitude     -0.151202
+dropoff\_longitude    0.339358
+dropoff\_latitude    -0.124345
+passenger\_count      0.010201
+pickup\_hour         -0.030179
+pickup\_day           0.001794
+pickup\_month         0.013716
+pickup\_year          0.019573
+hav\_distance         1.000000
+euc\_distance         0.993842
+precipitation       -0.009177
+snow\_depth          -0.006396
+snowfall            -0.008801
+max\_temp             0.019485
+min\_temp             0.018716
+avg\_wind            -0.014780
+Name: hav\_distance, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Histogram of No.of.Trips taken per Hour in a Day}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}hour}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{24}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{24}\PY{p}{,}\PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hour of the Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Trips}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of No.of.Trips taken per Hour in a Day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} Histogram of No.of.Trips taken per Day in a Week}
+         
+         \PY{k}{def} \PY{n+nf}{encodeDays}\PY{p}{(}\PY{n}{day\PYZus{}of\PYZus{}week}\PY{p}{)}\PY{p}{:}
+             \PY{n}{day\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sunday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Monday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Tuesday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wednesday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thursday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Friday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Saturday}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{\PYZcb{}}
+             \PY{k}{return} \PY{n}{day\PYZus{}dict}\PY{p}{[}\PY{n}{day\PYZus{}of\PYZus{}week}\PY{p}{]}
+         \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day\PYZus{}of\PYZus{}week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day\PYZus{}of\PYZus{}week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{encodeDays}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}day\PYZus{}of\PYZus{}week}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Day of the Week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Trips}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of No.of.Trips taken per Day in a Week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Histogram of No.of.Trips taken per Month in a Year}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}month}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{12}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Month of the Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Trips}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of No.of.Trips taken per Month in a Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{} Histogram of No.of.Trips taken per Year}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{train}\PY{o}{.}\PY{n}{pickup\PYZus{}year}\PY{p}{,} \PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{8}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{2009}\PY{p}{,}\PY{l+m+mi}{2016}\PY{p}{,}\PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Trips}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Histogram of No.of.Trips taken per Year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{PLOTS BETWEEN FARE AMOUNT AND WEATHER
+CONDITIONS}\label{plots-between-fare-amount-and-weather-conditions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precipitation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precipitation Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precipitation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}108}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{snow\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snow Depth Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snow Depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}108}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}109}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{snowfall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snowfall Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snowfall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}109}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}110}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max Temp Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max Temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}110}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min Temp Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min Temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}111}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg Wind Vs Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg Wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxi Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} Text(3.8,0.5,'Taxi Fare')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{PLOTS BETWEEN TRIP DISTANCE AND WEATHER
+CONDITIONS}\label{plots-between-trip-distance-and-weather-conditions}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precipitation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hav\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precipitation Vs Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Precipitation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}113}]:} Text(10.05,0.5,'Distance of Ride')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{snow\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hav\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snow Depth Vs Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snow Depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:} Text(10.05,0.5,'Distance of Ride')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{snowfall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hav\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snowfall Vs Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Snowfall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:} Text(10.05,0.5,'Distance of Ride')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}119}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hav\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max Temp Vs Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max Temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}119}]:} Text(10.05,0.5,'Distance of Ride')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min\PYZus{}temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hav\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min Temp Vs Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min Temp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}117}]:} Text(10.05,0.5,'Distance of Ride')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{avg\PYZus{}wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hav\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{train}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg Wind Vs Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set x\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Avg Wind}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Set y\PYZhy{}axis label}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Distance of Ride}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}118}]:} Text(10.05,0.5,'Distance of Ride')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{PROCESSING TEST DATA}\label{processing-test-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{} Pre\PYZhy{}Processing Test Data}
+         
+         \PY{n}{test} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{./test.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n+nb}{format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{S UTC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{day}
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}hour}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{hour}
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day\PYZus{}of\PYZus{}week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:}\PY{n}{calendar}\PY{o}{.}\PY{n}{day\PYZus{}name}\PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{weekday}\PY{p}{(}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{month}
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}datetime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{year}
+         
+         
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hav\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{test}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{row}\PY{p}{:}\PY{n}{haversian\PYZus{}distance}\PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dropoff\PYZus{}latitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{row}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dropoff\PYZus{}longitude}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euc\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{69} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{dropoff\PYZus{}longitude}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{pickup\PYZus{}longitude}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{pickup\PYZus{}latitude}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{dropoff\PYZus{}latitude}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{} Merging with Weather Data to obtain extra Features}
+         
+         \PY{n}{test\PYZus{}new} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{test}\PY{p}{,} \PY{n}{weather}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}month}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{test\PYZus{}new}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['key', 'pickup\_datetime', 'pickup\_longitude', 'pickup\_latitude',
+       'dropoff\_longitude', 'dropoff\_latitude', 'passenger\_count',
+       'pickup\_date', 'pickup\_day', 'pickup\_hour', 'pickup\_day\_of\_week',
+       'pickup\_month', 'pickup\_year', 'hav\_distance', 'euc\_distance',
+       'precipitation', 'snow\_depth', 'snowfall', 'max\_temp', 'min\_temp',
+       'avg\_wind'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{c+c1}{\PYZsh{} Checking for NULL Values}
+         
+         \PY{n}{test\PYZus{}new}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{n}{test\PYZus{}new}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{test\PYZus{}new}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+key                           object
+pickup\_datetime       datetime64[ns]
+pickup\_longitude             float64
+pickup\_latitude              float64
+dropoff\_longitude            float64
+dropoff\_latitude             float64
+passenger\_count                int64
+pickup\_date                   object
+pickup\_day                     int64
+pickup\_hour                    int64
+pickup\_day\_of\_week            object
+pickup\_month                   int64
+pickup\_year                    int64
+hav\_distance                 float64
+euc\_distance                 float64
+precipitation                  int64
+snow\_depth                     int64
+snowfall                       int64
+max\_temp                       int64
+min\_temp                       int64
+avg\_wind                       int64
+dtype: object
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{} Final Test Set that will be Used For Testing}
+         
+         \PY{n}{test} \PY{o}{=} \PY{n}{test\PYZus{}new}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n}{test}\PY{o}{.}\PY{n}{dtypes}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['key', 'pickup\_datetime', 'pickup\_longitude', 'pickup\_latitude',
+       'dropoff\_longitude', 'dropoff\_latitude', 'passenger\_count',
+       'pickup\_date', 'pickup\_day', 'pickup\_hour', 'pickup\_day\_of\_week',
+       'pickup\_month', 'pickup\_year', 'hav\_distance', 'euc\_distance',
+       'precipitation', 'snow\_depth', 'snowfall', 'max\_temp', 'min\_temp',
+       'avg\_wind'],
+      dtype='object')
+(9914, 21)
+key                           object
+pickup\_datetime       datetime64[ns]
+pickup\_longitude             float64
+pickup\_latitude              float64
+dropoff\_longitude            float64
+dropoff\_latitude             float64
+passenger\_count                int64
+pickup\_date                   object
+pickup\_day                     int64
+pickup\_hour                    int64
+pickup\_day\_of\_week            object
+pickup\_month                   int64
+pickup\_year                    int64
+hav\_distance                 float64
+euc\_distance                 float64
+precipitation                  int64
+snow\_depth                     int64
+snowfall                       int64
+max\_temp                       int64
+min\_temp                       int64
+avg\_wind                       int64
+dtype: object
+
+    \end{Verbatim}
+
+    \paragraph{PREPARING TRAIN AND VALIDATION SET FROM TRAINING
+DATA}\label{preparing-train-and-validation-set-from-training-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{c+c1}{\PYZsh{} Considering all the Features except \PYZsq{}Key\PYZsq{}, \PYZsq{}pickup\PYZus{}date\PYZsq{}, \PYZsq{}pickup\PYZus{}day\PYZus{}of\PYZus{}week\PYZsq{} and \PYZsq{}euc\PYZus{}distance\PYZsq{} (as haversian distance is already being considered, and both together could lead to redundant features.)}
+          \PY{n}{traindata} \PY{o}{=} \PY{n}{train}\PY{p}{[}\PY{n}{train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+          \PY{n}{traindata} \PY{o}{=} \PY{n}{traindata}\PY{p}{[}\PY{n}{traindata}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day\PYZus{}of\PYZus{}week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          \PY{n}{traindata} \PY{o}{=} \PY{n}{traindata}\PY{p}{[}\PY{n}{traindata}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          \PY{n}{traindata} \PY{o}{=} \PY{n}{traindata}\PY{p}{[}\PY{n}{traindata}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euc\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Trainoutput is the Fare Amount column}
+          \PY{n}{trainoutput} \PY{o}{=} \PY{n}{train}\PY{p}{[}\PY{n}{train}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{} Considering 2/3rd of the data for Training and 1/3rd for Validation}
+          \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{n}{traindata}\PY{o}{.}\PY{n}{shape}
+          \PY{n}{x1} \PY{o}{=} \PY{l+m+mi}{2} \PY{o}{*} \PY{n+nb}{int}\PY{p}{(}\PY{n}{x} \PY{o}{/} \PY{l+m+mi}{3}\PY{p}{)}
+          
+          \PY{n}{traindata\PYZus{}X} \PY{o}{=} \PY{n}{traindata}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{x1}\PY{p}{]}
+          \PY{n}{testdata\PYZus{}X} \PY{o}{=} \PY{n}{traindata}\PY{p}{[}\PY{n}{x1}\PY{p}{:}\PY{n}{x}\PY{p}{]}
+          
+          \PY{n}{traindata\PYZus{}Y} \PY{o}{=} \PY{n}{trainoutput}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{n}{x1}\PY{p}{]}
+          \PY{n}{testdata\PYZus{}Y} \PY{o}{=} \PY{n}{trainoutput}\PY{p}{[}\PY{n}{x1}\PY{p}{:}\PY{n}{x}\PY{p}{]}
+          
+          \PY{n}{x}\PY{p}{,} \PY{n}{y}
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{traindata}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['avg\_wind', 'dropoff\_latitude', 'dropoff\_longitude', 'hav\_distance',
+       'max\_temp', 'min\_temp', 'passenger\_count', 'pickup\_day', 'pickup\_hour',
+       'pickup\_latitude', 'pickup\_longitude', 'pickup\_month', 'pickup\_year',
+       'precipitation', 'snow\_depth', 'snowfall'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \paragraph{PREPARING TEST DATA}\label{preparing-test-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}125}]:} \PY{c+c1}{\PYZsh{} Considering all Features except \PYZsq{}Key\PYZsq{}, \PYZsq{}pickup\PYZus{}date\PYZsq{}, \PYZsq{}pickup\PYZus{}day\PYZus{}of\PYZus{}week\PYZsq{}}
+          \PY{n}{testdata} \PY{o}{=} \PY{n}{test}\PY{p}{[}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{:}\PY{p}{]}\PY{p}{]}
+          \PY{n}{testdata} \PY{o}{=} \PY{n}{testdata}\PY{p}{[}\PY{n}{testdata}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}day\PYZus{}of\PYZus{}week}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          \PY{n}{testdata} \PY{o}{=} \PY{n}{testdata}\PY{p}{[}\PY{n}{testdata}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pickup\PYZus{}date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          \PY{n}{testdata} \PY{o}{=} \PY{n}{testdata}\PY{p}{[}\PY{n}{testdata}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{euc\PYZus{}distance}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          
+          \PY{n+nb}{print} \PY{p}{(}\PY{n}{testdata}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Index(['avg\_wind', 'dropoff\_latitude', 'dropoff\_longitude', 'hav\_distance',
+       'max\_temp', 'min\_temp', 'passenger\_count', 'pickup\_day', 'pickup\_hour',
+       'pickup\_latitude', 'pickup\_longitude', 'pickup\_month', 'pickup\_year',
+       'precipitation', 'snow\_depth', 'snowfall'],
+      dtype='object')
+
+    \end{Verbatim}
+
+    \subsection{PREDICTION MODELS}\label{prediction-models}
+
+    \paragraph{LINEAR REGRESSION MODEL}\label{linear-regression-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}126}]:} \PY{c+c1}{\PYZsh{}TRAINING USING LINEAR REGRESSION}
+          
+          \PY{n}{regr} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+          \PY{n}{regr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{traindata\PYZus{}X}\PY{p}{,} \PY{n}{traindata\PYZus{}Y}\PY{p}{)}
+          \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}LR} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata\PYZus{}X}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} The coefficients}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Coefficients: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{regr}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} ERROR METRICS}
+          
+          \PY{c+c1}{\PYZsh{} Root Mean Square Error}
+          \PY{n}{rmse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}LR}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{rmse}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} The Mean Squared Error}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean squared error: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{\PYZdq{}}
+                \PY{o}{\PYZpc{}} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}LR}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} R2 Score}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance score: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}LR}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Coefficients: 
+ [[ 1.60929997e-04 -1.36371540e+01  1.07266298e+01  3.16495014e+00
+  -1.10849266e-03  4.61756423e-04  3.70720804e-02  1.90155047e-03
+   9.94131511e-03 -2.05127099e+01  1.40138653e+01  7.91423303e-02
+   5.36076031e-01  2.81981289e-04  1.78000353e-05 -9.99671939e-04]]
+RMSE: 5.255454
+Mean squared error: 27.62
+Variance score: 0.70
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}127}]:} \PY{c+c1}{\PYZsh{} TESTING ON TEST USED USING THE ABOVE MODEL}
+          
+          \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}lr} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}EXPORTING PREDICTIONS TO CSV}
+          
+          \PY{n}{key} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{key}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}lr}
+          \PY{n}{key}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}predictions\PYZus{}lr.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subparagraph{USING K-FOLD CROSS
+VALIDATION}\label{using-k-fold-cross-validation}
+
+The whole traindata and trainoutput are used here without splitting.\\
+K-Fold does the splitting based on K (Here K=6)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{c+c1}{\PYZsh{} USING K\PYZhy{}FOLD CROSS VALIDATION}
+         
+         \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{regr}\PY{p}{,} \PY{n}{traindata}\PY{p}{,} \PY{n}{trainoutput}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cross validated scores:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{scores}\PY{p}{)}
+             
+         \PY{n}{predictions} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}predict}\PY{p}{(}\PY{n}{regr}\PY{p}{,} \PY{n}{traindata}\PY{p}{,} \PY{n}{trainoutput}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{trainoutput}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+         
+         \PY{n}{accuracy} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{trainoutput}\PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cross\PYZhy{}Predicted Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{accuracy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cross validated scores: [0.67103047 0.67908206 0.70298945 0.71866223 0.70759829 0.71236777]
+Cross-Predicted Accuracy: 0.6984046393131362
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}lr} \PY{o}{=} \PY{n}{regr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}EXPORTING PREDICTIONS TO CSV}
+         
+         \PY{n}{key} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{key}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}lr}
+         \PY{n}{key}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}predictions\PYZus{}lr\PYZus{}cv.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{DECISION TREE REGRESSOR
+MODEL}\label{decision-tree-regressor-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{c+c1}{\PYZsh{} TRAINING USING DECISION TREE REGRESSOR MODEL}
+          
+          \PY{n}{dtr} \PY{o}{=} \PY{n}{DecisionTreeRegressor}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{traindata\PYZus{}X}\PY{p}{,} \PY{n}{traindata\PYZus{}Y}\PY{p}{)}
+          \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}DTR} \PY{o}{=} \PY{n}{dtr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata\PYZus{}X}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Error Metrics}
+          
+          \PY{c+c1}{\PYZsh{} Root Mean Square Error}
+          \PY{n}{rmse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}DTR}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{rmse}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Mean Squared Error}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean squared error: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{\PYZdq{}}
+                \PY{o}{\PYZpc{}} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}DTR}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} R2 Score}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance score: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}DTR}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RMSE: 5.733288
+Mean squared error: 32.87
+Variance score: 0.64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}dtr} \PY{o}{=} \PY{n}{dtr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}EXPORTING PREDICTIONS TO CSV}
+          
+          \PY{n}{key} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{key}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}dtr}
+          \PY{n}{key}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}predictions\PYZus{}dtr.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{RANDOM FOREST REGRESSOR
+MODEL}\label{random-forest-regressor-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}128}]:} \PY{c+c1}{\PYZsh{}TRAINING USING RANDOM FOREST REGRESSOR}
+          
+          \PY{n}{rf} \PY{o}{=} \PY{n}{RandomForestRegressor}\PY{p}{(}\PY{p}{)}
+          \PY{n}{rf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{traindata\PYZus{}X}\PY{p}{,} \PY{n}{traindata\PYZus{}Y}\PY{p}{)}
+          \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}RFR} \PY{o}{=} \PY{n}{rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata\PYZus{}X}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Error Metrics}
+          
+          \PY{c+c1}{\PYZsh{} Root Mean Square Error}
+          \PY{n}{rmse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}RFR}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{rmse}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Mean Squared Error}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean squared error: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{\PYZdq{}}
+                \PY{o}{\PYZpc{}} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}RFR}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} R2 Score}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance score: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}RFR}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:4: DataConversionWarning: A column-vector y was passed when a 1d array was expected. Please change the shape of y to (n\_samples,), for example using ravel().
+  after removing the cwd from sys.path.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RMSE: 3.953216
+Mean squared error: 15.63
+Variance score: 0.83
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}129}]:} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}rfr} \PY{o}{=} \PY{n}{rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}EXPORTING PREDICTIONS TO CSV}
+          
+          \PY{n}{key} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{key}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}rfr}
+          \PY{n}{key}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}predictions\PYZus{}rfr.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{XGB REGRESSOR}\label{xgb-regressor}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{c+c1}{\PYZsh{}TRAINING USING XGB REGRESSOR}
+          
+          \PY{n}{xg\PYZus{}reg} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{XGBRegressor}\PY{p}{(}\PY{p}{)}
+          \PY{n}{xg\PYZus{}reg}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{traindata\PYZus{}X}\PY{p}{,}\PY{n}{traindata\PYZus{}Y}\PY{p}{)}
+          \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}XGB} \PY{o}{=} \PY{n}{xg\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata\PYZus{}X}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Error Metrics}
+          
+          \PY{c+c1}{\PYZsh{} Root Mean Square Error}
+          \PY{n}{rmse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}XGB}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{rmse}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Mean Square Error}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean squared error: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{\PYZdq{}}
+                \PY{o}{\PYZpc{}} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}XGB}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} R2 Score}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance score: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{testdata\PYZus{}Y\PYZus{}pred\PYZus{}XGB}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RMSE: 3.925925
+Mean squared error: 15.41
+Variance score: 0.83
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}xgb} \PY{o}{=} \PY{n}{xg\PYZus{}reg}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{testdata}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}EXPORTING PREDICTIONS TO CSV}
+          
+          \PY{n}{key} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{key}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}xgb}
+          \PY{n}{key}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}predictions\PYZus{}xgb.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{XGB WITH HYPERPARAMETERS}\label{xgb-with-hyperparameters}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{dtrain} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{DMatrix}\PY{p}{(}\PY{n}{traindata\PYZus{}X}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{traindata\PYZus{}Y}\PY{p}{)}
+          \PY{n}{dtest} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{DMatrix}\PY{p}{(}\PY{n}{testdata\PYZus{}X}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}set parameters for xgboost}
+          \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{silent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{objective}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reg:linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eval\PYZus{}metric}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.1}
+                   \PY{p}{\PYZcb{}}
+          \PY{n}{num\PYZus{}rounds} \PY{o}{=} \PY{l+m+mi}{50}
+          
+          \PY{n}{xb} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{params}\PY{p}{,} \PY{n}{dtrain}\PY{p}{,} \PY{n}{num\PYZus{}rounds}\PY{p}{)}
+          
+          \PY{n}{y\PYZus{}pred\PYZus{}xgb} \PY{o}{=} \PY{n}{xb}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{dtest}\PY{p}{)}
+          
+          \PY{n}{rmse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{rmse}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean squared error: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{\PYZdq{}}
+                \PY{o}{\PYZpc{}} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} Explained variance score: 1 is perfect prediction}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance score: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RMSE: 3.779267
+Mean squared error: 14.28
+Variance score: 0.84
+
+    \end{Verbatim}
+
+    Tried changing the Parameters to check for better performance
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{dtrain} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{DMatrix}\PY{p}{(}\PY{n}{traindata\PYZus{}X}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{traindata\PYZus{}Y}\PY{p}{)}
+          \PY{n}{dtest} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{DMatrix}\PY{p}{(}\PY{n}{testdata\PYZus{}X}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Set parameters for xgboost}
+          \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{9}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{silent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{objective}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reg:linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eval\PYZus{}metric}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.1}
+                   \PY{p}{\PYZcb{}}
+          \PY{n}{num\PYZus{}rounds} \PY{o}{=} \PY{l+m+mi}{100}
+          
+          \PY{n}{xb} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{params}\PY{p}{,} \PY{n}{dtrain}\PY{p}{,} \PY{n}{num\PYZus{}rounds}\PY{p}{)}
+          
+          \PY{n}{y\PYZus{}pred\PYZus{}xgb} \PY{o}{=} \PY{n}{xb}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{dtest}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Error Metrics}
+          
+          \PY{c+c1}{\PYZsh{} Root Mean Square Error}
+          \PY{n}{rmse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{rmse}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Mean Squared Error}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean squared error: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{\PYZdq{}}
+                \PY{o}{\PYZpc{}} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} R2 Score}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance score: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RMSE: 3.692071
+Mean squared error: 13.63
+Variance score: 0.85
+
+    \end{Verbatim}
+
+    Tried changing the Parameters again. \#\#\#\#\# This gave the best
+performance among all the previous models.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{dtrain} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{DMatrix}\PY{p}{(}\PY{n}{traindata\PYZus{}X}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{traindata\PYZus{}Y}\PY{p}{)}
+          \PY{n}{dtest} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{DMatrix}\PY{p}{(}\PY{n}{testdata\PYZus{}X}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}set parameters for xgboost}
+          \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{silent}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{objective}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reg:linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{eval\PYZus{}metric}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rmse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+m+mf}{0.15}
+                   \PY{p}{\PYZcb{}}
+          \PY{n}{num\PYZus{}rounds} \PY{o}{=} \PY{l+m+mi}{100}
+          
+          \PY{n}{xb} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{params}\PY{p}{,} \PY{n}{dtrain}\PY{p}{,} \PY{n}{num\PYZus{}rounds}\PY{p}{)}
+          
+          \PY{n}{y\PYZus{}pred\PYZus{}xgb} \PY{o}{=} \PY{n}{xb}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{dtest}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Error Metrics}
+          
+          \PY{c+c1}{\PYZsh{} Root Mean Square Error}
+          \PY{n}{rmse} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RMSE: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{rmse}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} Mean Squared Error}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean squared error: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s2}{\PYZdq{}}
+                \PY{o}{\PYZpc{}} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{} R2 Score}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Variance score: }\PY{l+s+si}{\PYZpc{}.2f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{testdata\PYZus{}Y}\PY{p}{,} \PY{n}{y\PYZus{}pred\PYZus{}xgb}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+RMSE: 3.641732
+Mean squared error: 13.26
+Variance score: 0.86
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n}{dtest\PYZus{}actual} \PY{o}{=} \PY{n}{xgb}\PY{o}{.}\PY{n}{DMatrix}\PY{p}{(}\PY{n}{testdata}\PY{p}{)}
+          \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}xgb\PYZus{}params} \PY{o}{=} \PY{n}{xb}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{dtest\PYZus{}actual}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}EXPORTING PREDICTIONS TO CSV}
+          
+          \PY{n}{key} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{n}{test}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{key}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fare\PYZus{}amount}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{actual\PYZus{}testdata\PYZus{}pred\PYZus{}xgb\PYZus{}params}
+          \PY{n}{key}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test\PYZus{}predictions\PYZus{}xgb\PYZus{}params.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    Below Plot shows the importance of each feature towards building the
+Prediction Model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{n}{xgb}\PY{o}{.}\PY{n}{plot\PYZus{}importance}\PY{p}{(}\PY{n}{xb}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{rcParams}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_83_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
