@@ -1,4 +1,5 @@
 # New-York-Taxi-Fare-Prediction
+
 Performed exploratory data analysis and modelling on NYC Taxi Dataset. Used methods like Linear Regression, Random Forest Regression and XGBoost Regression to build the prediction model.
 The following tasks have been performed.
 
