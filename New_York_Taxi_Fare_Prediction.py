@@ -58,6 +58,13 @@ train = pd.read_csv('./train.csv', nrows = 1000000)
 train.columns
 
 
+# ### TASK 1: DATA CLEANING
+# 
+# I performed basic data cleaning which involved:
+# 1. Checking for missing values and removing the rows corresponding to them if any.
+# 2. Removing the rows that have -ve values of Fare amount as Fare cannot be -ve.
+# 3. Truncating longitude and latitude values to fit NY coordinates.
+
 # In[5]:
 
 
@@ -206,14 +213,38 @@ print (train.columns)
 
 # #### WEATHER DATA
 # 
-# Used the below link for reference to obtain a part of New York Weather Data for the period that The Taxi Fare Dataset spans over.
 # 
-# https://sdaulton.github.io/TaxiPrediction/
+# Weather Dataset from ​https://www.ncdc.noaa.gov/cdo-web/datasets
 # 
-# The dataset set used is https://raw.githubusercontent.com/sdaulton/TaxiPrediction/master/data/nyc-weather-data.csv
+# ○ This website contains the Daily Summaries of the Weather in required cities for the required period of time. And they have the data available from 1869-01-01 until so far.
 # 
-# This dataset covers Daily Summary of Weather of New York From Jan 1st 2009 to Nov 11th 2015.
+# ○ They provide large set of features like Snowfall, Snow Depth, Min Temperature, Max Temperature, Precipitation, Air Wind etc to name a few.
 # 
+# https://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf
+# 
+# ○ Along with the above details regarding the weather, they provide the year/date/month on which that particular weather was observed. Hence, this can be used to merge this data with our existing data.
+# 
+# ○ Weather plays a huge role in the movement of taxis. The availability, prices, and demand everything can change based on the weather. Hence, incorporating details about the weather into our dataset would definitely boost our model.
+# 
+# 
+# ○ The dataset set used is https://raw.githubusercontent.com/sdaulton/TaxiPrediction/master/data/nyc-weather-data.csv
+# 
+# ○ This dataset covers Daily Summary of Weather of New York From Jan 1st 2009 to Nov 11th 2015.
+# 
+
+# I have again performed basic Pre-processing similar to before.
+# 
+# ○ In this dataset -9999 indicate missing values, hence replaced such values with 0
+# 
+# ○ Parsed the ‘Date’ feature to extract the following in order to be able to merge this data to our existing data.
+# 
+# ■ 'pickup_year'
+# 
+# ■ 'pickup_month'
+# 
+# ■ 'pickup_day'
+# 
+# ○ The provided data was initially parsed to have the above fields. Hence, using these 3 fields, the initial data has been merged with this external Weather Data.
 
 # In[16]:
 
@@ -270,7 +301,19 @@ print (train.shape)
 print (train.dtypes)
 
 
-# #### PEARSON CORRELATION
+# ### TASK 2 : PEARSON CORRELATION
+# 
+# 2.1) Pearson correlation between Euclidean distance and the taxi fare
+# 
+# ● 0.8257585563383683
+# 
+# 2.2) Pearson correlation between time of day and distance travelled
+# 
+# ● -0.030505480979840977
+# 
+# 2.3) Pearson correlation between time of day and the taxi fare
+# 
+# ● -0.01927381911008901
 
 # In[20]:
 
@@ -279,6 +322,8 @@ print ("Corr between Eucledian Distance and Fare Amount")
 corr = pearsonr(train.fare_amount, train.euc_distance)
 print (corr)
 
+
+# ### TASK 3.1: Plot depicting relationship between 'Distance of the ride' and 'Taxi Fare'
 
 # In[120]:
 
@@ -309,6 +354,21 @@ plt.xlabel('Distance of Ride <= 50')
 plt.ylabel('Taxi Fare')
 
 
+# #### Comment on whether you see non-linear or any other interesting relations (based on 3.1)
+# 
+# ● In an ideal scenario, we can say that the Distance Travelled and Taxi Fare should be linearly related. But, it is very obvious that there are a lot of external factors that affect the relation between the two and hence we cannot say that they are completely linearly related.
+# 
+# ● Although, as we can see in the attached plot there does exist a nearly linear relationship between the two for a lot of data samples. This is more clear in the Right hand side plot which caps the distance travelled to 50.
+# 
+# ● One interesting aspect I think could be a depiction of the above plot is that the line describing the data is quite below the y=x line, i.e the fare for higher distances does not increase in proportion to how it does for the distances clustered around the centre.
+# 
+# ● This is evident In the left hand side plot where we can see a cluster of data samples at very high distances (60-80) but with quite less fare. This (as previously discussed in class) could be due to the Trips to the Airport which are quite long, but have fixed prices.
+# 
+# ● Also, as we know Pearson Correlation depicts the strength of linearity between different parameters. A Pearson Correlation of ​0.8257585563383683 does indicate quite a strong linear correlation between the Distance Travelled and Taxi Fare.
+# 
+
+# ### TASK 3.2: Plot depicting relationship between 'Time of day' and 'Distance Travelled'.
+
 # In[22]:
 
 
@@ -332,6 +392,18 @@ plt.xlabel('Time of Day')
 plt.ylabel('Distance of Ride')
 
 
+# #### Comment on whether you see non-linear or any other interesting relations (based on 3.2)
+# 
+# ● Based on the attached plot, I see that Time of the Day and Distance travelled are not quite linearly related.
+# 
+# ● The Pearson Correlation between the two is very small (​-0.030505480979840977​) which means that they aren’t related much.
+# 
+# ● Although, one interesting thing to observe is that there is a range of distances that are mostly never taken despite any part of the day, like the distances between 40-60 are very less taken. And in my assumption, I think that the distances below that could indicate the daily commuters from home to office or vice versa, and the above half could indicate the ones who travel to the airports which tend be quite far away.
+# 
+# ● The average distance travelled may be high at the centre (i.e through the day than early or late night) but apart from this, there seems to be no definite linear relationship between time and the distance travelled.
+
+# ### TASK 3.3: Plot depicting relationship between 'Time of day' and 'Taxi Fare'.
+
 # In[24]:
 
 
@@ -354,7 +426,19 @@ plt.xlabel('Time of Day')
 plt.ylabel('Taxi Fare')
 
 
-# #### OTHER INTERESTING PLOTS AND CORRELATIONS BETWEEN CERTAIN FEATURES
+# #### Comment on whether you see non-linear or any other interesting relations (based on 3.3)
+# 
+# ● In similar line with the above explanation, I see that there does not exist that strong a linear relationship between Time of the Day and Taxi Fare either.
+# 
+# ● These are also share a very small Pearson Correlation () indicating that they are not much related as well.
+# 
+# ● The interesting aspect about this plot are the data points that lie at high Taxi Fares in the middle of the day, and some at the end of the day. With an assumption that most travel to the airport happens either at early or late hours and with the fact that the fare for these trips is fixed, these anomalous data points would not be of the trips to the airport.
+# 
+# ● Instead I feel that the reason for the high fare during midday and later could be due to the increased traffic during that time that could have lead to less available cabs with surged prices, thus leading to some really high data points.
+# 
+# ● Apart from that, these two are not as strongly related to each other.
+
+# ### TASK 4: OTHER INTERESTING PLOTS AND CORRELATIONS BETWEEN CERTAIN FEATURES
 
 # In[26]:
 
@@ -432,6 +516,10 @@ plt.show()
 
 
 # #### PLOTS BETWEEN FARE AMOUNT AND WEATHER CONDITIONS
+# 
+# ● The below plots indicate the New parameters that I have used from an External New York Weather Dataset (explained in detail in below questions).
+# 
+# ● The parameters are ['avg_wind', 'max_temp', 'min_temp', 'precipitation', 'snow_depth', 'snowfall']. I plotted all these variables against the Fare amount to see how they were related to the two and also to check whether these features would help improve my existing model or not and I found some interesting observations.
 
 # In[123]:
 
@@ -579,6 +667,21 @@ plt.xlabel('Avg Wind')
 plt.ylabel('Distance of Ride')
 
 
+# Among all the above plots, one common observation I can make is that there is quite a clear relation between the Distance travelled and Taxi Fare, because for the points at the top in the left plots, there are corresponding samples in the right plot as well indicating that Trip Distance and Taxi Fare are indeed correlated.
+# 
+# Now comparing the features one by one:
+# 
+# ○ Avg Wind - We can clearly see that for higher winds the distance travelled is lesser,
+# thus in turn leading the taxi fare to be lesser.
+# 
+# ○ Precipitation - Similar to Avg Wind, the distance travelled and the fair are low when
+# Precipitation is high.
+# 
+# ○ Snow Depth and Snow Fall - Here surprisingly I initially expected a decrease in both
+# the rides and the fairs as I thought the availability of cabs would become lesser. But I see that there is quite a constant curve which could mean that during the snow, people continue to use the cabs all the more due to the harsh weathers.
+# 
+# ○ Min Temp and Max Temp - This plot was very interesting indicating perfectly that the distance travelled and taxi fares are high when the temperatures are relatively bearable and they reduced when they go under a certain temperature.
+
 # #### PROCESSING TEST DATA 
 
 # In[66]:
@@ -672,7 +775,28 @@ testdata = testdata[testdata.columns.difference(['euc_distance'])]
 print (testdata.columns)
 
 
-# ## PREDICTION MODELS
+# ### TASK 8: PREDICTION MODELS
+# 
+# ● I have used 3 Error Metrics to evaluate my models.
+#     
+#     ○ Root Mean Square Error (RMSE)
+#     ○ Mean Squared Error (MSE)
+#     ○ R2 Score
+# 
+# ● And the goal is to try to maximize R2 score (1 being the best) while minimizing RMSE and MSE along with ensuring that the model does not overfit.
+# 
+# ● I have tried the following Machine Learning Models:
+#     
+#     ○ Linear Regressor
+#     ○ Decision Trees
+#     ○ Random Forest Regressor
+#     ○ XGB Regressor (without any Hyperparameter Tuning) and
+#     ○ XGB with Hyperparameters
+# 
+# ● Among all the above, XGB with Hyperparameters worked the best providing a score of 3.17502 on the Test data. (which is a very high improvement on the Linear Model that was done initially which got a score of 5.60765)
+# 
+# ● Also, I tried splitting the data in different proportions to obtain the Train and Validation set and a split of 2/3rd Train and 1/3rd Validation Set along with XGB with Hyperparameters worked the best.
+# 
 
 # #### LINEAR REGRESSION MODEL
 
@@ -702,6 +826,14 @@ print("Mean squared error: %.2f"
 print('Variance score: %.2f' % r2_score(testdata_Y, testdata_Y_pred_LR))
 
 
+# ● My Linear regression model achieved an RMSE = ​5.255454, MSE = 27.62 and R2 score = 0.70.
+# 
+# ● For a basic linear model (that could be considered as the baseline model) I believe that it did quite okay providing an RMSE = 5.60765 on the Test Data. But, this is definitely not a good model and has to be improved upon.
+# 
+# ● Also, I think for data as sparse and vast as that we have, we may not be able to model it linearly as it involves a lot of real world parameters and in general might contain lots of outliers along with many other underlying dependencies among the features. Hence, linear regression did not produce that good a result for the problem.
+# 
+# ● Improvisations upon the baseline model have improved the RMSE score for Test Data drastically and this has been discussed further in Que 8.
+
 # In[127]:
 
 
@@ -718,8 +850,10 @@ key.to_csv('test_predictions_lr.csv')
 
 
 # ##### USING K-FOLD CROSS VALIDATION
-# The whole traindata and trainoutput are used here without splitting.  
-# K-Fold does the splitting based on K (Here K=6)
+# 
+# ● Instead of manually splitting the data every time, I also performed K-Fold Cross Validation for the different modules. But I did not see significant betterment in the model through this.
+# 
+# ● The whole traindata and trainoutput are used here without splitting. K-Fold does the splitting based on K (Here K=6)
 
 # In[78]:
 
@@ -989,3 +1123,22 @@ xgb.plot_importance(xb)
 plt.rcParams['figure.figsize'] = [7, 7]
 plt.show()
 
+
+# ### Observations:
+# 
+# ● I noted significant change in the performance of my models as I went through from a simple Linear Model to a complex XGB Booster.
+# 
+# ● The RMSE score for the different models on the Test Data was as follows:
+#     
+#     ○ Linear Regression - RMSE score = 5.60765
+#     ○ Decision Trees - RMSE score = ​5.88059​ (was worse than Linear Model)
+#     ○ Random Forest Regressor - RMSE score = ​3.64299​ (drastic improvement from here on)
+#     ○ XGB Regressor without parameters - RMSE score = ​3.55638
+#     ○ XGB Regressor with Parameters - RMSE score after tuning the parameters few times = 3.17502
+# 
+# ● My understanding from this practice mainly was that real world datasets ( considering most dataset are actually real world) are extremely complicated and visualizing this kind of data in order to understand the data better requires efforts. In other words, a simple linear model is not always sufficient to best model a data BUT should definitely be the way to start as it gives us a better understanding into the data spread and feature dependencies.
+# 
+# ● I also understood the concept of ‘Overfitting’ a lot better as I went through multiple training attempts where my Training RMSE was quite impressive but it did not work well on the Test Data Set. Learning Regularization techniques to solve these issues is one thing that I am looking forward to.
+# 
+# ● Also, I ran the test on the entire dataset using XGB (without parameters) and it performed way worse than when I consider 1000000 sample (for all my above experiments). I believe this could be due to the fact that there could have been more noise/outliers in the whole set, or that too much data let to extreme overfitting as Train data was 55M while test data was only 9414.
+# 
